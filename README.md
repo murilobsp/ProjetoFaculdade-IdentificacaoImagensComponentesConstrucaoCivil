@@ -32,3 +32,7 @@
  - Cada pasta "train" foi uma vez.
  - weigths contém o melhor treino dessa vez(best.pt) e o ultimo (last.pt)
  - Contém todo os parâmetros de resultados.
+
+<br>
+
+<img width="580" alt="obra" src="https://github.com/user-attachments/assets/85008010-f51f-4cd6-ac6f-550dcc1e76be" />
