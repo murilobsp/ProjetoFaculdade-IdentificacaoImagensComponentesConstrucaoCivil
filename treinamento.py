@@ -6,7 +6,7 @@ if __name__=="__main__":
     model = YOLO("yolo11n.pt")
 
     results = model.train(
-        data=("Construction/data.yaml"),  #Arquivo de configuracao
+        data=("construction/data.yaml"),  #Arquivo de configuracao
         epochs=50,                        #Ciclos de treinamento (vai rodar x as imagens)
         imgsz=640,                        #Tamanho das imagens
         batch=16,                         #Quantas imagens por vez

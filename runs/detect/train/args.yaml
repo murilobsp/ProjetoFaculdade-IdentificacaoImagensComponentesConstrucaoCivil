@@ -1,7 +1,7 @@
 task: detect
 mode: train
 model: yolo11n.pt
-data: Construction/data.yaml
+data: construction/data.yaml
 epochs: 50
 time: null
 patience: 0
@@ -111,4 +111,4 @@ auto_augment: randaugment
 erasing: 0.4
 cfg: null
 tracker: tracktrack.yaml
-save_dir: C:\Users\MuriloBsp\PycharmProjects\Yolo\runs\detect\train
+save_dir: C:\Users\Murilo\PycharmProjects\Yolo\runs\detect\train
