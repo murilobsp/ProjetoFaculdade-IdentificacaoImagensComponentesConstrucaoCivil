@@ -11,6 +11,19 @@ img = filedialog.askopenfilename(title="Escolha um arquivo", filetypes=[ ("Image
 
 #Teste com melhor modelo já treinado
 model = YOLO("runs/detect/train/weights/best.pt")
+model.model.names = {
+    0: 'Capacete',
+    1: 'Luvas',
+    2: 'Colete',
+    3: 'Botas',
+    4: 'Óculos',
+    5: 'Sem Colete',
+    6: 'Pessoa',
+    7: 'Sem Capacete',
+    8: 'Sem Óculos',
+    9: 'Sem Luvas',
+    10: 'Sem Botas'
+}
 result = model(img,) #save=True
 impressao = result[0].plot()
 
