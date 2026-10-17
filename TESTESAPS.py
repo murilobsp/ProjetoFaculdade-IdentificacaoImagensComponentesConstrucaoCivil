@@ -179,15 +179,16 @@ cv2.waitKey(0)
 
 
 
-"""
 
+"""
 
 #BINARIZAÇÂO
 
 import cv2
 import numpy as np
-img = cv2.imread('tophat.jpg')
+img = cv2.imread('way.jpg')
 img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+img = img[::2,::2] # Diminui a imagem
 
 
 suave = cv2.GaussianBlur(img, (7, 7), 0) # aplica blur
@@ -197,7 +198,7 @@ resultado = np.vstack([
     np.hstack([suave, bin]),
     np.hstack([binI, cv2.bitwise_and(img, img, mask = binI)])
 ])
-cv2.imshow("Binarizacao da imagem", resultado)
+cv2.imshow("Binarizacao da imagem", binarizacao)
 #cv2.imwrite("binarizacaoaposTophat.jpg", resultado)
 cv2.waitKey(0)
 

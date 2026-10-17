@@ -3,11 +3,11 @@ import yaml
 from pathlib import Path
 
 #PASTA BASE DOS ARQUIVOS
-base = Path(__file__).resolve().parent.parent
+base = Path(__file__).resolve().parent
 
 #PASSA A CAMINHO PARA AS VARIAVEIS
 origem = base / "construction" / "images"
-destino =  base / "filtrocinzaconstruction" / "images"
+destino =  base / "filtrobinarizacaoCinza" / "images"
 
 
 #CRIA O CLAHE
@@ -21,6 +21,7 @@ for pasta in ["test", "train", "val"]:
 
     imagens = origem / pasta
     saida_imagens = destino / pasta
+    saida_imagens.mkdir(parents=True, exist_ok=True)
 
     quantidade = 0
 
@@ -45,20 +46,33 @@ for pasta in ["test", "train", "val"]:
             cv2.COLOR_LAB2BGR
         )
 
+
         #PASSA PELA GALSSIANA EM MATRIZ DE 3X3 (MAIS SUAVE)
-        imagem_final = cv2.GaussianBlur(
+        imagem_penultima = cv2.GaussianBlur(
             imagem_clahe,
             (3, 3),
             0
         )
 
-        camino_saida = saida_imagens / arquivo.name
+        #PASSA PELA BINARIZACAO
+        imagem_penultima = cv2.cvtColor(imagem_penultima, cv2.COLOR_BGR2GRAY)
+        _, imagem_final = cv2.threshold(
+            imagem_penultima,
+            130,
+            255,
+            cv2.THRESH_BINARY)
+
+
+
+
+
+        caminho_saida = saida_imagens / arquivo.name
 
         #A CADA IMAGEM SOMA +1
-        if cv2.imwrite(str(camino_saida), imagem_final):
+        if cv2.imwrite(str(caminho_saida), imagem_final):
             quantidade += 1
         else:
-            print(f"Erro ao salvar: {camino_saida}")
+            print(f"Erro ao salvar: {caminho_saida}")
 
 
     print(f"{pasta}: {quantidade} imagens processadas.")
@@ -68,7 +82,7 @@ for pasta in ["test", "train", "val"]:
         configuracao = yaml.safe_load(f)
 
     #CONFIGURA O INTERNO DO YAML
-    configuracao["path"] = "filtrocinzaconstruction"
+    configuracao["path"] = "filtrobinarizacaoCinza"
     configuracao["test"] = "images/test"
     configuracao["train"] = "images/train"
     configuracao["val"] = "images/val"
