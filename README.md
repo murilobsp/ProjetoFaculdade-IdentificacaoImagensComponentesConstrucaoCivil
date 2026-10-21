@@ -17,6 +17,10 @@
  - Seleciona o versão do Yolo, no caso yolo11n.pt.
  - model.train contem os parâmetros para o treinamento.
 
+ **tela-de-comparacao**<br>
+ - instalar biblioteca Pillow para poder exibir as imagens na interface do Tkinter: 'pip install Pillow'
+ - 
+
 <br>
 
 
