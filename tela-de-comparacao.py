@@ -11,6 +11,8 @@ janela.geometry("1200x600") #tamando da janela
 janela.configure(bg="#121315")
 area_resultados = tk.Frame(janela, bg="#1C1E22")  # cria um conteiner para organizar os resultados na janela
 area_resultados.pack(side="top", fill="both", expand=True, padx=10, pady=10)  # Posiciona os resultados no topo e permite que ocupem o espaço disponível
+area_resultados.grid_columnconfigure((0, 1, 2, 3), weight=1)
+
 
 
 def selecionar_imagem(): #será executada quando o usuário clicar no botão
@@ -25,10 +27,9 @@ def selecionar_imagem(): #será executada quando o usuário clicar no botão
         nome_imagem = arquivo.name #extrai o nome completo, incluindo a extensão (jpeg,jpg, etc...)  
         pastas = [ #lista dos caminhos das pastas onde será pego as imagens
             arquivo.parent, #pasta da imagem original selecionada
-            Path("filtrobinarizacao/images/test"),
-            Path("filtrobinarizacaoCinza/images/test"),
             Path("filtrocinzaconstruction/images/test"),
-            Path("filtroconstruction/images/test")
+            Path("filtroconstruction/images/test"),
+            Path("filtromascara/images/test")
     ]
 
     imagens = [] #cria lista vazia para armazenar as 5 imagens
@@ -64,11 +65,10 @@ def selecionar_imagem(): #será executada quando o usuário clicar no botão
         elemento.destroy() #remove o elemento atual
 
     nomes_filtros = [  # Define os títulos que serão exibidos em cada imagem
-            "Original", 
-            "Binarização", 
-            "Binarização em Cinza",  
+            "Original",   
             "Clahe e Gaussiana em Cinza",
-            "Clahe e Gaussiana"
+            "Clahe e Gaussiana",
+            "Binarização e Máscara"
         ]
 
     for indice, (caminho_imagem, impressao, texto_legenda) in enumerate(resultados_yolo):  # percorre as cinco imagens com as detecções
@@ -84,8 +84,8 @@ def selecionar_imagem(): #será executada quando o usuário clicar no botão
         rotulo_imagem.image = imagem_tk # Mantém uma referência à imagem para que ela não desapareça
         rotulo_imagem.grid(row=1, column=indice, padx=5, pady=5)  # Posiciona a imagem abaixo do título
        
-        rotulo_legenda = tk.Label(area_resultados, text=texto_legenda, justify="left", anchor="w", bg="#222736", fg="#FFB547", font=("Consolas", 9))  # Cria o elemento que irá exibir as legendas 
-        rotulo_legenda.grid(row=2, column=indice, padx=5, pady=5, sticky="nw")  # Posiciona a legenda abaixo da imagem
+        rotulo_legenda = tk.Label(area_resultados, text=texto_legenda, justify="left", anchor="w", width=30, bg="#222736", fg="#FFB547", font=("Consolas", 9))  # Cria o elemento que irá exibir as legendas 
+        rotulo_legenda.grid(row=2, column=indice, padx=5, pady=5)  # Posiciona a legenda abaixo da imagem
 
 model = YOLO("runs/detect/train/weights/best.pt")
 model.model.names = {
